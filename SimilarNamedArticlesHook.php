@@ -10,7 +10,7 @@ function SNA_aboveArticle( $output_page, $qText)
 	$ns = $wgTitle->getNamespace();
 	$output = ""; // init
 
-	if ( $wgSNA_aboveSubpages && $wgTitle->isSubpage() ) {
+	if ( ! $wgSNA_aboveSubpages && $wgTitle->isSubpage() ) {
 		return;
 	}
 
