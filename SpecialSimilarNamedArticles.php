@@ -73,7 +73,7 @@ class SimilarNamedArticles extends SpecialPage
 				$FollowSingleArticle = true)
 	{
 		require_once( 'SearchEngine.php' );
-		global $wgSNA_Namespaces, $wgNamespacesToBeSearchedDefault,
+		global $wgSNA_Namespaces, $wgNamespacesToBeSearchedDefault, $wgSNA_includeSubpages,
 			$wgNamespaceHomes, $wgSNA_addInfoNamespace, $wgSNA_addInfoCategories;
 		global $wgContLang;
 		$outtext = "";
@@ -120,6 +120,8 @@ class SimilarNamedArticles extends SpecialPage
 		while( $row = $matches->next() ) {
 			$addInfo = array ();
 			$fulltitle = $row->getTitle();
+			if ( $wgSNA_includeSubpages == false && $fulltitle->isSubpage() )
+				continue;
 			$namespace = $fulltitle->getNamespace(); # this is an ID
 			$namespaceName = ereg_replace("_", " ", Namespace::getCanonicalName($namespace));
 			$title = $fulltitle->getText();
