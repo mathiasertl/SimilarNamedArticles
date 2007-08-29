@@ -5,9 +5,14 @@ $wgHooks['OutputPageBeforeHTML'][] = array('SNA_aboveArticle');
 function SNA_aboveArticle( $output_page, $qText)
 {
 	global $wgTitle, $wgParser;
-	global $wgSNA_Namespaces, $wgSNA_SearchEnable, $wgSNA_aboveArticleEnable, $wgSNA_aboveArticleNamespaces;
+	global $wgSNA_Namespaces, $wgSNA_SearchEnable, $wgSNA_aboveArticleEnable,
+		$wgSNA_aboveArticleNamespaces, $wgSNA_aboveSubpages;
 	$ns = $wgTitle->getNamespace();
 	$output = ""; // init
+
+	if ( $wgSNA_aboveSubpages && $wgTitle->isSubpage() ) {
+		return;
+	}
 
 	# check if there is anything to be done.
 	if ( ( isset ($wgSNA_aboveArticleNamespaces) && ! in_array($ns, $wgSNA_aboveArticleNamespaces) )
