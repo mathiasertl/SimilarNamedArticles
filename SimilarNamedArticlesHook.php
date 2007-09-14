@@ -11,14 +11,14 @@ function SNA_aboveArticle( $output_page, $qText)
 	$output = ""; // init
 
 	if ( $wgRequest->getVal('action') != '' )
-		return;
+		return true;
 	if ( ! $wgSNA_aboveSubpages && $wgTitle->isSubpage() )
-		return;
+		return true;
 
 	# check if there is anything to be done.
 	if ( ( isset ($wgSNA_aboveArticleNamespaces) && ! in_array($ns, $wgSNA_aboveArticleNamespaces) )
 		|| !$wgSNA_SearchEnable || !$wgSNA_aboveArticleEnable ) {
-		return;
+		return true;
 	}
 	if ( ! isset ($wgSNA_aboveArticleNamespaces) )
 		$wgSNA_aboveArticleNamespaces = array ( 0 );
@@ -45,6 +45,8 @@ function SNA_aboveArticle( $output_page, $qText)
 
 	# you could invert this to append the text instead of prepending it.
 	$qText =  $parserOutput->getText() . $qText;
+
+	return true;
 }
 
 ?>
