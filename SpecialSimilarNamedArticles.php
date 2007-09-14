@@ -41,7 +41,8 @@ class SimilarNamedArticles extends SpecialPage
 	function loadMessages() {
 		static $messagesLoaded = false;
 		global $wgMessageCache;
-		if ( $messagesLoaded ) return;
+		if ( $messagesLoaded )
+			return true;
 		$messagesLoaded = true;
 
 		require( dirname( __FILE__ ) . '/SimilarNamedArticles.i18n.php' );
