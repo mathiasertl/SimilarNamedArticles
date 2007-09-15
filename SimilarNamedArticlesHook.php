@@ -1,6 +1,6 @@
 <?php
 
-$wgHooks['OutputPageBeforeHTML'][] = array('SNA_aboveArticle');
+$wgHooks['OutputPageBeforeHTML'][] = 'SNA_aboveArticle';
 
 function SNA_aboveArticle( $output_page, $qText)
 {
