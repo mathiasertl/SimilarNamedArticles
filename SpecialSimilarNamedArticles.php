@@ -99,7 +99,7 @@ class SimilarNamedArticles extends SpecialPage
 	
 	function searchForPrefix( $title, $explicitNS ) {
 		global $wgSimilarNamedArticlesNamespaces, $wgNamespacesToBeSearchedDefault;
-		global $wgSimilarNamedArticlesIncludeSubpages;
+		global $wgSimilarNamedArticlesIncludeSubpages, $wgSimilarNamedArticlesIncludeRedirects;
 
 		# search in these namespaces:
 		if ( $explicitNS or $explicitNS === 0 )
@@ -122,6 +122,8 @@ class SimilarNamedArticles extends SpecialPage
 				'page_title LIKE \'' . $dbr->escapeLike( $prefixKey ) .'%\'',
 				'page_title >= ' . $dbr->addQuotes( $prefixKey ),
 				);
+		if ( ! $wgSimilarNamedArticlesIncludeRedirects )
+			$db_conditions[] = 'page_is_redirect=0';
 
 		$res = $dbr->select( 'page',
 				array( 'page_namespace', 'page_title', 'page_is_redirect' ),
