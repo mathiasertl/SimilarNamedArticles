@@ -76,7 +76,8 @@ class SimilarNamedArticles extends SpecialPage
 	{
 		require_once( 'SearchEngine.php' );
 		global $wgSNA_Namespaces, $wgNamespacesToBeSearchedDefault, $wgSNA_includeSubpages,
-			$wgNamespaceHomes, $wgSNA_addInfoNamespace, $wgSNA_addInfoCategories;
+			$wgNamespaceHomes, $wgSNA_addInfoNamespace, $wgSNA_addInfoCategories,
+			$wgSNA_showResourcesCount;
 		global $wgContLang;
 		$outtext = "";
 		$categoryNSText = $wgContLang->getNSText ( NS_CATEGORY );
@@ -128,6 +129,7 @@ class SimilarNamedArticles extends SpecialPage
 			$namespaceName = ereg_replace("_", " ", Namespace::getCanonicalName($namespace));
 			$title = $fulltitle->getText();
 			$categories = $fulltitle->getParentCategories();
+			$titleObj = $fulltitle;
 			$fulltitle = $fulltitle->getPrefixedText(); // this becomes a string here.
 
 			# we need to cover the case of a main namespace article
@@ -175,6 +177,12 @@ class SimilarNamedArticles extends SpecialPage
 							}
 						}
 					}
+				}
+
+				if ( $wgSNA_showResourcesCount ) {
+					$resourcesPage = new Resources();
+					$resourcesCount = $resourcesPage->getResourceListCount( $titleObj );
+					$addInfo[] = "[[Spezial:Materialien/" . $titleObj->getPrefixedText() . "|" . $resourcesCount . " Materialien]]";
 				}
 				
 				$addInfoText = implode(", ", $addInfo);
