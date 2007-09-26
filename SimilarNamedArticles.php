@@ -24,6 +24,4 @@ function SNA_LocalizedPageName( &$specialPageArray, $code) {
 	return true;
 }
 
-require_once(dirname(__FILE__) . '/SimilarNamedArticlesHook.php');
-
 ?>
