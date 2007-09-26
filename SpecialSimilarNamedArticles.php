@@ -193,7 +193,7 @@ class SimilarNamedArticles extends SpecialPage
 		if ( $wgSimilarNamedArticlesAddInfoResources && $wgResourcesEnable ) {
 			$resourcesPage = new Resources();
 			$resourcesCount = $resourcesPage->getResourceListCount( $title );
-			$addInfo[] = '[[' . wfMsg('nstab-special') . ':' . 
+			$addInfo[] = '[[' . Namespace::getCanonicalName(NS_SPECIAL) . ':' . 
 				wfMsg('resources') . '/' . $title->getPrefixedText() .
 				'|' . $resourcesCount . ' ' . wfMsg('resources') . ']]';
 		}
