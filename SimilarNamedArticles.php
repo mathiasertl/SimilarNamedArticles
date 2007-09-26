@@ -9,18 +9,19 @@ EOT;
 }
 
 $wgAutoloadClasses['SimilarNamedArticles'] = dirname(__FILE__) . '/SpecialSimilarNamedArticles.php';
+$wgSpecialPages[ 'SimilarNamedArticles' ] = 'SimilarNamedArticles';
 $wgHooks['LoadAllMessages'][] = 'SimilarNamedArticles::loadMessages';
+$wgHooks['LangugeGetSpecialPageAliases'][] = 'SNA_LocalizedPageName';
 
-switch ( $wgLanguageCode ) {
-	case 'en':
-		$wgSpecialPages[ 'SimilarNamedArticles' ] = 'SimilarNamedArticles';
-		break;
-	case 'de':
-		$wgSpecialPages[ 'LVASuche' ] = 'SimilarNamedArticles';
-		break;
-	default:
-		$wgSpecialPages[ 'SimilarNamedArticles' ] = 'SimilarNamedArticles';
-		break;
+function SNA_LocalizedPageName( &$specialPageArray, $code) {
+	SimilarNamedArticles::loadMessages();
+	$text = wfMsg('similarnamedarticles');
+ 
+	# Convert from title in text form to DBKey and put it into the alias array:
+	$title = Title::newFromText( $text );
+	$specialPageArray['SimilarNamedArticles'][] = $title->getDBKey();
+ 
+	return true;
 }
 
 require_once(dirname(__FILE__) . '/SimilarNamedArticlesHook.php');

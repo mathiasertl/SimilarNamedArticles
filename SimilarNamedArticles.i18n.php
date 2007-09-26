@@ -4,15 +4,17 @@ $allMessages = array(
 		'similarnamedarticles_title' => 'SimilarNamedArticles',
 		'similarnamedarticles' => 'SimilarNamedArticles',
 		'noParamsGiven' => 'No parameters given',
-		'no-articles-found' => '\'\'\'No\'\'\' pages have a similar title!',
-		'articles-found' => 'The following pages have a similar title:'
+		'noResults' => '\'\'\'No similar named pages where found.\'\'\'',
+		'oneResult' => '\'\'\'One similar named article found:\'\'\'',
+		'manyResults' => '\'\'\'$1 similar named articles have been found:\'\'\'',
         ),
 	'de' => array(
 		'similarnamedarticles_title' => 'LVASuche',
-		'lvasuche' => 'LVASuche',
+		'similarnamedarticles' => 'LVASuche',
 		'noParamsGiven' => 'Keine Parameter angegeben',
-		'no-articles-found' => '\'\'\'Zu dieser LVA gibt es noch keinen Eintrag im VoWi!\'\'\'<br />Auf [[VoWi:Hilfe]] gibt es Hilfe & Support zur Erstellung neuer Artikel!',
-		'articles-found' => '\'\'\'Gleichnamige Lehrveranstaltungen:\'\'\'<br />'
+		'noResults' => '\'\'\'Keine Lehrveranstaltungen mit diesem Titel gefunden.\'\'\'',
+		'OneResult' => '\'\'\'Eine Lehrveranstaltung mit diesem Titel gefunden:\'\'\'',
+		'manyResults' => '\'\'\'$1 Lehrveranstaltungen mit diesem Titel gefunden:\'\'\'',
 	)
 );
 ?>
