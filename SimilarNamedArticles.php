@@ -13,6 +13,14 @@ $wgSpecialPages[ 'SimilarNamedArticles' ] = 'SimilarNamedArticles';
 $wgHooks['LoadAllMessages'][] = 'SimilarNamedArticles::loadMessages';
 $wgHooks['LangugeGetSpecialPageAliases'][] = 'SNA_LocalizedPageName';
 
+$wgExtensionCredits['specialpage'][] = array (
+	'name' => 'SimilarNamedArticles',
+	'description' => 'Finds articles where the name starts with a given prefix',
+	'version' => '2.0-1.11.0',
+	'author' => 'Mathias Ertl',
+	'url' => 'http://pluto.htu.tuwien.ac.at/devel_wiki/index.php/SimilarNamedArticles',
+);
+
 function SNA_LocalizedPageName( &$specialPageArray, $code) {
 	SimilarNamedArticles::loadMessages();
 	$text = wfMsg('similarnamedarticles');
