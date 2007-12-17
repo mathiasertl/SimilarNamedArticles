@@ -16,7 +16,7 @@ $wgHooks['LangugeGetSpecialPageAliases'][] = 'SNA_LocalizedPageName';
 $wgExtensionCredits['specialpage'][] = array (
 	'name' => 'SimilarNamedArticles',
 	'description' => 'Finds articles where the name starts with a given prefix',
-	'version' => '2.0.1-1.11.0',
+	'version' => '2.1.1-1.11.0',
 	'author' => 'Mathias Ertl',
 	'url' => 'http://pluto.htu.tuwien.ac.at/devel_wiki/index.php/SimilarNamedArticles',
 );
