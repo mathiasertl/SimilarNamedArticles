@@ -138,8 +138,19 @@ class SimilarNamedArticles extends SpecialPage
 		while ( $row = $dbr->fetchObject( $res ) ) {
 			$nsString = Namespace::getCanonicalName( $row->page_namespace );
 			$resultTitle = Title::newFromDBKey( $nsString . ":" .$row->page_title );
-			if ( $includeSubpages == false && $resultTitle->isSubpage() )
-				continue;
+			if ( $includeSubpages == false ) {
+				if ( $resultTitle->isSubpage() ) {
+					$basePage = Title::newFromText(
+						$resultTitle->getBaseText(),
+						$resultTitle->getNamespace()
+					);
+
+					if ( $basePage->exists() ) {
+						continue;
+					}
+				}
+			}
+
 			$result[] = $resultTitle;
 		}
 
