@@ -11,7 +11,7 @@ EOT;
 $wgAutoloadClasses['SimilarNamedArticles'] = dirname(__FILE__) . '/SpecialSimilarNamedArticles.php';
 $wgSpecialPages[ 'SimilarNamedArticles' ] = 'SimilarNamedArticles';
 $wgHooks['LoadAllMessages'][] = 'SimilarNamedArticles::loadMessages';
-$wgHooks['LangugeGetSpecialPageAliases'][] = 'SNA_LocalizedPageName';
+$wgHooks['LanguageGetSpecialPageAliases'][] = 'SNA_LocalizedPageName';
 
 $wgExtensionCredits['specialpage'][] = array (
 	'name' => 'SimilarNamedArticles',
