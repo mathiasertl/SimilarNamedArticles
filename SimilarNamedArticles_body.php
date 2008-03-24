@@ -3,31 +3,32 @@
 /**
  * Entry point
  */
-function wfSpecialSimilarNamedArticles( $par ) {
+function efRunSimilarNamedArticles( $par ) {
 	global $wgOut;
 	$page = new SimilarNamedArticles();
-	$page->execute($par);
+	$page->execute( $par );
 }
 
 class SimilarNamedArticles extends SpecialPage
 {
 	function SimilarNamedArticles() {
-		self::loadMessages();
-		SpecialPage::SpecialPage( "SimilarNamedArticles" );
+		SpecialPage::SpecialPage( 'SimilarNamedArticles' );
+		wfLoadExtensionMessages( 'SimilarNamedArticles');
 	}
 
 	/**
 	 * main worker-function...
 	 */
 	function execute( $par ) {
-		global $wgSimilarNamedArticlesEnable;
-		global $wgOut;
-		$this->setHeaders();
+		global $wgOut, $wgSimilarNamedArticlesEnable;
 
 		if ( ! $wgSimilarNamedArticlesEnable )
 			return;
 
 		if ( $par ) {
+			$wgOut->setPagetitle( 
+				wfMsg( 'similarnamedarticles_title', wfMsg('similarnamedarticles'), $par ) 
+			);
 			$title = Title::newFromtext( $par );
 			$ns = $title->getNamespace();
 			if ( $ns == 0 ) {
@@ -37,25 +38,12 @@ class SimilarNamedArticles extends SpecialPage
 				$explicitNS = $ns;
 			$wgOut->addWikiText( $this->getSimilarNames( $title, $explicitNS ) );
 		} else {
+			$wgOut->setPagetitle( wfMsg('similarnamedarticles') );
 			$wgOut->addWikiText( wfMsg('noParamsGiven') );
 			return;
 		}
 	}
 
-	function loadMessages() {
-		static $messagesLoaded = false;
-		global $wgMessageCache;
-		if ( $messagesLoaded )
-			return true;
-		$messagesLoaded = true;
-
-		require( dirname( __FILE__ ) . '/SimilarNamedArticles.i18n.php' );
-		foreach ( $allMessages as $lang => $langMessages ) {
-			$wgMessageCache->addMessages( $langMessages, $lang );
-		}
-		return true;
-	}
-	
 	/**
 	 * this function does find all pages with the given prefix.
 	 * return: string in wikiformat.

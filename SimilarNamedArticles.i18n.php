@@ -1,16 +1,16 @@
 <?php
-$allMessages = array(
+$messages = array(
         'en' => array( 
-		'similarnamedarticles_title' => 'SimilarNamedArticles',
 		'similarnamedarticles' => 'SimilarNamedArticles',
+		'similarnamedarticles_title' => 'Articles named like $2',
 		'noParamsGiven' => 'No parameters given',
 		'noResults' => '\'\'\'No similar named pages where found.\'\'\'',
 		'oneResult' => '\'\'\'One similar named article found:\'\'\'',
 		'manyResults' => '\'\'\'$1 similar named articles have been found:\'\'\'',
         ),
 	'de' => array(
-		'similarnamedarticles_title' => 'LVASuche',
 		'similarnamedarticles' => 'LVASuche',
+		'similarnamedarticles_title' => '$1 nach $2',
 		'noParamsGiven' => 'Keine Parameter angegeben',
 		'noResults' => '\'\'\'Keine Lehrveranstaltungen mit diesem Titel gefunden.\'\'\'',
 		'OneResult' => '\'\'\'Eine Lehrveranstaltung mit diesem Titel gefunden:\'\'\'',
