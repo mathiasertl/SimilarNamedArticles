@@ -8,12 +8,12 @@ EOT;
 	exit( 1 );
 }
 
-$dir = dirname(__FILE__) . '/';
+$dir = dirname(__FILE__);
 
-$wgAutoloadClasses['SimilarNamedArticles'] = $dir . 'SimilarNamedArticles_body.php';
-$wgExtensionMessagesFiles['SimilarNamedArticles'] = $dir . 'SimilarNamedArticles.i18n.php';
+$wgAutoloadClasses['SimilarNamedArticles'] = $dir . '/SimilarNamedArticles_body.php';
+$wgExtensionMessagesFiles['SimilarNamedArticles'] = $dir . '/SimilarNamedArticles.i18n.php';
 $wgSpecialPages[ 'SimilarNamedArticles' ] = 'SimilarNamedArticles';
-$wgHooks['LanguageGetSpecialPageAliases'][] = 'similarNamedArticlesLocalizedPageName';
+$wgHooks['LanguageGetSpecialPageAliases'][] = 'efSimilarNamedArticlesLocalizedPageName';
 
 $wgExtensionCredits['specialpage'][] = array (
 	'name' => 'SimilarNamedArticles',
@@ -23,13 +23,16 @@ $wgExtensionCredits['specialpage'][] = array (
 	'url' => 'http://pluto.htu.tuwien.ac.at/devel_wiki/SimilarNamedArticles',
 );
 
-function similarNamedArticlesLocalizedPageName( &$specialPageArray, $code ) {
+function efSimilarNamedArticlesLocalizedPageName( &$specialPageArray, $code ) {
 	wfLoadExtensionMessages( 'SimilarNamedArticles' );
-	$text = wfMsg('similarnamedarticles');
+	$textMain = wfMsgForContent( 'similarnamedarticles' );
+	$textUser = wfMsg( 'similarnamedarticles' );
  
 	# Convert from title in text form to DBKey and put it into the alias array:
-	$title = Title::newFromText( $text );
-	$specialPageArray['SimilarNamedArticles'][] = $title->getDBKey();
+	$titleUser = Title::newFromText( $textUser );
+	$titleMain = Title::newFromText( $textMain );
+	$specialPageArray['SimilarNamedArticles'][] = $titleMain->getDBKey();
+	$specialPageArray['SimilarNamedArticles'][] = $titleUser->getDBKey();
  
 	return true;
 }
