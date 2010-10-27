@@ -124,7 +124,7 @@ class SimilarNamedArticles extends SpecialPage
 				);
 
 		while ( $row = $dbr->fetchObject( $res ) ) {
-			$nsString = Namespace::getCanonicalName( $row->page_namespace );
+			$nsString = MWNamespace::getCanonicalName( $row->page_namespace );
 			$resultTitle = Title::newFromDBKey( $nsString . ":" .$row->page_title );
 			if ( $includeSubpages == false ) {
 				if ( $resultTitle->isSubpage() ) {
@@ -194,7 +194,7 @@ class SimilarNamedArticles extends SpecialPage
 		if ( $wgSimilarNamedArticlesAddInfoResources && $wgResourcesEnable ) {
 			$resourcesPage = new Resources();
 			$resourcesCount = $resourcesPage->getResourceListCount( $title );
-			$addInfo[] = '[[' . Namespace::getCanonicalName(NS_SPECIAL) . ':' . 
+			$addInfo[] = '[[' . MWNamespace::getCanonicalName(NS_SPECIAL) . ':' . 
 				wfMsg('resources') . '/' . $title->getPrefixedText() .
 				'|' . $resourcesCount . ' ' . wfMsg('resources') . ']]';
 		}
