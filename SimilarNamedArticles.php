@@ -20,7 +20,7 @@ $wgExtensionCredits['specialpage'][] = array (
 	'description' => 'Finds articles where the name starts with a given prefix',
 	'version' => '2.1.4-1.13.0',
 	'author' => 'Mathias Ertl',
-	'url' => 'http://pluto.htu.tuwien.ac.at/devel_wiki/SimilarNamedArticles',
+	'url' => 'https://fs.fsinf.at/wiki/SimilarNamedArticles',
 );
 
 function efSimilarNamedArticlesLocalizedPageName( &$specialPageArray, $code ) {

@@ -31,6 +31,7 @@ class SimilarNamedArticles extends SpecialPage
 			);
 			$title = Title::newFromtext( $par );
 			$ns = $title->getNamespace();
+			$explicitNS = false;
 			if ( $ns == 0 ) {
 				if ( strpos( $par, ':' ) === 0 ) 
 					$explicitNS = 0;
@@ -100,9 +101,10 @@ class SimilarNamedArticles extends SpecialPage
 		$includeSubpages = $wgSimilarNamedArticlesIncludeSubpages;
 
 		$result = array();
-		$prefix = $title->getPrefixedDBkey();
-		$prefixList = SpecialAllpages::getNamespaceKeyAndText($namespace, $prefix);
-		list( $namespace, $prefixKey, $prefix ) = $prefixList;
+		#$prefix = $title->getPrefixedDBkey();
+		#$prefixList = SpecialAllpages::getNamespaceKeyAndText($namespace, $prefix);
+		#list( $namespace, $prefixKey, $prefix ) = $prefixList;
+		$prefixKey = $title->getDBkey();
 
 		$dbr = wfGetDB( DB_SLAVE );
 		$db_conditions = array(
@@ -116,7 +118,7 @@ class SimilarNamedArticles extends SpecialPage
 		$res = $dbr->select( 'page',
 				array( 'page_namespace', 'page_title', 'page_is_redirect' ),
 				$db_conditions,
-				$fname,
+				"SimilarNamedArticles::searchForPrefix",
 				array(
 					'ORDER BY'  => 'page_title',
 					'USE INDEX' => 'name_title',
