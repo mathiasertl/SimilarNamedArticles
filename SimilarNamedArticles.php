@@ -19,7 +19,7 @@ $wgExtensionCredits['specialpage'][] = array (
 	'author' => 'Mathias Ertl',
 	'url' => 'https://fs.fsinf.at/wiki/SimilarNamedArticles',
 	'description' => 'Finds articles where the name starts with a given prefix',
-	'version' => '2.1.5-1.21.0',
+	'version' => '2.1.6-1.21.0',
 );
 
 ?>
