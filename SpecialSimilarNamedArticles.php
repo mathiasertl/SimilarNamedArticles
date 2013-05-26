@@ -11,10 +11,9 @@ function efRunSimilarNamedArticles( $par ) {
 
 class SimilarNamedArticles extends SpecialPage
 {
-	function SimilarNamedArticles() {
-		SpecialPage::SpecialPage( 'SimilarNamedArticles' );
-		wfLoadExtensionMessages( 'SimilarNamedArticles');
-	}
+    function __construct() {
+        parent::__construct('SimilarNamedArticles');
+    }
 
 	/**
 	 * main worker-function...
@@ -26,14 +25,14 @@ class SimilarNamedArticles extends SpecialPage
 			return;
 
 		if ( $par ) {
-			$wgOut->setPagetitle( 
-				wfMsg( 'similarnamedarticles_title', wfMsg('similarnamedarticles'), $par ) 
+			$wgOut->setPagetitle(
+				wfMsg( 'similarnamedarticles_title', wfMsg('similarnamedarticles'), $par )
 			);
 			$title = Title::newFromtext( $par );
 			$ns = $title->getNamespace();
 			$explicitNS = false;
 			if ( $ns == 0 ) {
-				if ( strpos( $par, ':' ) === 0 ) 
+				if ( strpos( $par, ':' ) === 0 )
 					$explicitNS = 0;
 			} else
 				$explicitNS = $ns;
@@ -48,7 +47,7 @@ class SimilarNamedArticles extends SpecialPage
 	/**
 	 * this function does find all pages with the given prefix.
 	 * return: string in wikiformat.
-	 * 
+	 *
 	 * Note that this function sometimes never returns: if only one
 	 * 	result is found and $followSingleArticle = true.
 	 */
@@ -59,7 +58,7 @@ class SimilarNamedArticles extends SpecialPage
 
 		switch ( $noOfResults ) {
 			case 0:
-				// only true if called from special page: 
+				// only true if called from special page:
 				if ( $followSingleArticle )
 					return wfMsg('noResults');
 				else
@@ -85,7 +84,7 @@ class SimilarNamedArticles extends SpecialPage
 
 		return $output;
 	}
-	
+
 	function searchForPrefix( $title, $explicitNS ) {
 		global $wgSimilarNamedArticlesNamespaces, $wgNamespacesToBeSearchedDefault;
 		global $wgSimilarNamedArticlesIncludeSubpages, $wgSimilarNamedArticlesIncludeRedirects;
@@ -104,12 +103,12 @@ class SimilarNamedArticles extends SpecialPage
 		#$prefix = $title->getPrefixedDBkey();
 		#$prefixList = SpecialAllpages::getNamespaceKeyAndText($namespace, $prefix);
 		#list( $namespace, $prefixKey, $prefix ) = $prefixList;
-		$prefixKey = $title->getDBkey();
+        $prefixKey = $title->getDBkey();
 
 		$dbr = wfGetDB( DB_SLAVE );
 		$db_conditions = array(
 				'page_namespace' => array_keys( $nsToBeSearched, true ),
-				'page_title LIKE \'' . $dbr->escapeLike( $prefixKey ) .'%\'',
+				'page_title ' . $dbr->buildLike($prefixKey, $dbr->anyString()),
 				'page_title >= ' . $dbr->addQuotes( $prefixKey ),
 				);
 		if ( ! $wgSimilarNamedArticlesIncludeRedirects )
@@ -196,11 +195,11 @@ class SimilarNamedArticles extends SpecialPage
 		if ( $wgSimilarNamedArticlesAddInfoResources && $wgResourcesEnable ) {
 			$resourcesPage = new Resources();
 			$resourcesCount = $resourcesPage->getResourceListCount( $title );
-			$addInfo[] = '[[' . MWNamespace::getCanonicalName(NS_SPECIAL) . ':' . 
+			$addInfo[] = '[[' . MWNamespace::getCanonicalName(NS_SPECIAL) . ':' .
 				wfMsg('resources') . '/' . $title->getPrefixedText() .
 				'|' . $resourcesCount . ' ' . wfMsg('resources') . ']]';
 		}
-		
+
 		if ( count( $addInfo ) > 0 ) {
 			$result .= ' (' . implode( ', ', $addInfo ) . ')';
 		}
