@@ -12,8 +12,8 @@ $specialPageAliases = array();
  * @author Mathias Ertl
  */
 $specialPageAliases['en'] = array(
-        'MyExtension' => array( 'SimilarNamedArticles', 'Similar named articles' ),
-;
+    'MyExtension' => array( 'SimilarNamedArticles', 'Similar named articles' ),
+);
 
 /** Deutsch
  * @author Mathias Ertl
