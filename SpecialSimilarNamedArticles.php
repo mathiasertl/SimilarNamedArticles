@@ -159,7 +159,7 @@ class SimilarNamedArticles extends SpecialPage
 		if ( $wgSimilarNamedArticlesAddInfoNamespaces ) {
 			# ns 0 needs special treatment:
 			if ( $title->getNamespace() == 0 )
-				$ns = wfMsg ('nstab-main');
+				$ns = wfMessage('nstab-main')->text();
 			else
 				$ns = $title->getNsText();
 
