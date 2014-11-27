@@ -26,7 +26,7 @@ class SimilarNamedArticles extends SpecialPage
 
 		if ( $par ) {
 			$wgOut->setPagetitle(
-				wfMsg( 'similarnamedarticles_title', wfMsg('similarnamedarticles'), $par )
+				wfMessage('similarnamedarticles_title', wfMessage('similarnamedarticles')->text(), $par)->text()
 			);
 			$title = Title::newFromtext( $par );
 			$ns = $title->getNamespace();
@@ -38,8 +38,8 @@ class SimilarNamedArticles extends SpecialPage
 				$explicitNS = $ns;
 			$wgOut->addWikiText( $this->getSimilarNames( $title, $explicitNS ) );
 		} else {
-			$wgOut->setPagetitle( wfMsg('similarnamedarticles') );
-			$wgOut->addWikiText( wfMsg('noParamsGiven') );
+			$wgOut->setPagetitle(wfMessage('similarnamedarticles')->text());
+			$wgOut->addWikiText(wfMessage('noParamsGiven')->text());
 			return;
 		}
 	}
@@ -60,7 +60,7 @@ class SimilarNamedArticles extends SpecialPage
 			case 0:
 				// only true if called from special page:
 				if ( $followSingleArticle )
-					return wfMsg('noResults');
+					return wfMessage('noResults')->text();
 				else
 					return '';
 				break;
@@ -74,7 +74,7 @@ class SimilarNamedArticles extends SpecialPage
 				}
 				break;
 			default:
-				$output .= wfMsg( 'manyResults', $noOfResults );
+				$output .= wfMessage('manyResults', $noOfResults)->text();
 				foreach ( $titleArray as $title ) {
 					$output .= "\n* " . $this->getResultString( $title );
 				}
@@ -182,12 +182,12 @@ class SimilarNamedArticles extends SpecialPage
 
 			if ( $wgSimilarNamedArticlesAddInfoCategories == 'all' ) {
 				foreach ( $categories as $value ) {
-					$addInfo[] = '[[:' . wfMsg('nstab-category') . ":" . $value . '|' . $value . ']]';
+					$addInfo[] = '[[:' . wfMessage('nstab-category')->text() . ":" . $value . '|' . $value . ']]';
 				}
 			} elseif ( is_array($wgSimilarNamedArticlesAddInfoCategories ) ) {
 				foreach ( $categories as $value) {
 					if ( in_array( $value, $wgSimilarNamedArticlesAddInfoCategories ) )
-						$addInfo[] = '[[:' . wfMsg('nstab-category') . ":" . $value . '|' . $value . ']]';
+						$addInfo[] = '[[:' . wfMessage('nstab-category')->text() . ":" . $value . '|' . $value . ']]';
 				}
 			}
 		}
@@ -196,8 +196,8 @@ class SimilarNamedArticles extends SpecialPage
 			$resourcesPage = new SpecialResources();
 			$resourcesCount = $resourcesPage->getResourceListCount( $title );
 			$addInfo[] = '[[' . MWNamespace::getCanonicalName(NS_SPECIAL) . ':' .
-				wfMsg('resources') . '/' . $title->getPrefixedText() .
-				'|' . $resourcesCount . ' ' . wfMsg('resources') . ']]';
+				wfMessage('resources')->text() . '/' . $title->getPrefixedText() .
+				'|' . $resourcesCount . ' ' . wfMessage('resources')->text() . ']]';
 		}
 
 		if ( count( $addInfo ) > 0 ) {
